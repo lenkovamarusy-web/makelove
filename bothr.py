@@ -72,10 +72,6 @@ async def anon(callback: CallbackQuery, state: FSMContext):
 
     text = f"{category_map[data['category']]}\n{data['text']}\n— {author}\n{'='*40}\n"
 
-    # Сохраняем в файл
-    with open(SAVE_FILE, "a", encoding="utf-8") as f:
-        f.write(f"{datetime.now()}:\n{text}")
-
     # Отправляем только админу
     await bot.send_message(ADMIN_ID, f"Новое сообщение:\n\n{text}")
     await callback.message.answer("Отправлено и сохранено ✅")
