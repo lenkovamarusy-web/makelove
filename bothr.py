@@ -79,27 +79,25 @@ async def anon(callback: CallbackQuery, state: FSMContext):
 
 # -------- Тестовое напоминание --------
 async def weekly_reminder_loop():
-    now = datetime.now()
-    # Время теста: сегодня 16:35
-    next_run = now.replace(hour=16, minute=35, second=0, microsecond=0)
+    while True:
+        now = datetime.utcnow() + timedelta(hours=1)
 
-    # Если сейчас уже после 16:35, ставим на завтра
-    if next_run <= now:
-        next_run += timedelta(days=1)
+        next_run = now.replace(hour=16, minute=35, second=0, microsecond=0)
 
-    wait_seconds = (next_run - now).total_seconds()
-    print(f"Ждем {wait_seconds} секунд до тестового напоминания...")
+        if next_run <= now:
+            next_run += timedelta(days=1)
 
-    await asyncio.sleep(wait_seconds)
+        wait_seconds = (next_run - now).total_seconds()
+        print(f"Ждем {wait_seconds} секунд...")
 
-    # Отправка сообщения в рабочий чат / канал
-    await bot.send_message(
-        "@test2026makelove",  # сюда твой канал или группу
-        text="Тестовое напоминание: напишите, пожалуйста, когда планируете работать удалённо на следующую неделю."
-    )
+        await asyncio.sleep(wait_seconds)
 
-    print("Напоминание отправлено ✅")
+        await bot.send_message(
+            CHANNEL_ID,
+            text="Напоминание: напишите, пожалуйста, когда планируете работать удалённо на следующую неделю."
+        )
 
+        await asyncio.sleep(60)
 # -------- Запуск --------
 async def main():
     # Запускаем цикл с напоминаниями
