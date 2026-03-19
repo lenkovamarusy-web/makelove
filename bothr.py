@@ -5,9 +5,11 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from datetime import datetime, timedelta
 
-BOT_TOKEN = os.getenv("8244962939:AAHnRBxYfNsW5P63KhAnvHf6MLjE0b3_oh8")
-ADMIN_ID = int(os.getenv(220891380)
-CHANNEL_ID = os.getenv("@test2026makelove")
+import os
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
+CHANNEL_ID = os.getenv("CHANNEL_ID")
 
 
 bot = Bot(token=BOT_TOKEN)
